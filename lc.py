@@ -97,6 +97,29 @@ class Solution(object):
                 if not prefix:
                     return ""
         return prefix
+    
+    ## Time limit exceded xD
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        l = len(s)
+        pal_list = []
+        for i in range(l):
+            for j in range(i+1, l+1):
+                sub = s[i:j]
+                if sub == sub[::-1]:
+                    pal_list.append(sub)
+
+        max_len = -1
+        res = ""
+        for e in pal_list:
+            if len(e) > max_len:
+                max_len = len(e)
+                res = e
+        return res
+    
 
 ### TESTING ###
 
