@@ -50,17 +50,13 @@ class Solution(object):
         :rtype: int
         """
         char_map = {}
-        max_length = 0 # result for the max length found
-        start = 0 # start index of current sliding window
+        max_length = 0 
+        start = 0 
         for i, char in enumerate(s):
-            # If the character is found in the dictionary and its index is within the current window
             if char in char_map and char_map[char] >= start:
-                # move sliding window to the right
                 start = char_map[char] + 1
 
-            # Update the last position of the current character
             char_map[char] = i
-            # calc max length
             max_length = max(max_length, i - start + 1)
         return max_length
 
@@ -126,6 +122,8 @@ class Solution(object):
             while left >= 0 and right < len(s) and s[left] == s[right]:
                 left -= 1
                 right += 1
+                print("left: ", left)
+                print("right:", right)
             return s[left:1+right]
 
         if len(s) == 0:
@@ -149,7 +147,20 @@ class Solution(object):
         :type numRows: int
         :rtype: str
         """
-        zigzag = ""
+        if numRows == 1 or numRows >= len(s):
+            return s
+        
+        rows = [''] * numRows
+        current_row = 0
+        going_down = False
+        
+        for char in s:
+            rows[current_row] += char
+            if current_row == 0 or current_row == numRows - 1:
+                going_down = not going_down
+            current_row += 1 if going_down else -1
+        
+        return ''.join(rows)
 
 ### TESTING ###
 
@@ -178,3 +189,7 @@ l2 = create_linked_list(l2_values)
 
 s = Solution()
 print_linked_list(s.addTwoNumbers(l1, l2))    
+
+s_p =  "babad"
+print(s.longestPalindrome_2(s_p))
+
