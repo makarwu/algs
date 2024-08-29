@@ -119,7 +119,37 @@ class Solution(object):
                 max_len = len(e)
                 res = e
         return res
+
+    # optimized version
+    def longestPalindrome_2(self, s):
+        def expand_around_center(left: int, right: int) -> str:
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return s[left:1+right]
+
+        if len(s) == 0:
+            return ""
+        
+        longest_palindrome = ""
+        for i in range(len(s)):
+
+            odd_palindrome = expand_around_center(i, i)
+            even_panlindrome = expand_around_center(i, i+1)
+            longer_palindrome = odd_palindrome if len(odd_palindrome) > len(even_panlindrome) else even_panlindrome
+
+            if len(longer_palindrome) > len(longest_palindrome):
+                longest_palindrome = longer_palindrome
+        
+        return longest_palindrome
     
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        zigzag = ""
 
 ### TESTING ###
 
