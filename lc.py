@@ -210,7 +210,24 @@ class Solution(object):
                 else:
                     right -= 1 
         return result
-
+    
+    def reverse_integer(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        sign = -1 if x < 0 else 1
+        x = abs(x)
+        
+        revers = int(str(x)[::-1])
+        revers *= sign
+        
+        if revers < -2**31 or revers > 2**31 - 1:
+            return 0
+        
+        return revers
+    
+        
 ### TESTING ###
 
 def create_linked_list(lst):
