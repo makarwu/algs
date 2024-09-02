@@ -302,6 +302,30 @@ class Solution(object):
                 nums[j] = nums[i]
 
         return j + 1
+    
+    ### random test - inverting variables with xor ###
+    def invert_vars_with_xor():
+        a = "{0:08b}".format(10)
+        b = "{0:08b}".format(12)
+
+        a_int = int(a, 2)
+        b_int = int(b, 2)
+
+        print("a", a)
+        print("b", b)
+
+        c = a_int ^ b_int
+        c_binary = "{0:08b}".format(c)
+
+        print("c", c_binary)
+
+        d = c ^ b_int
+        d_binary = "{0:08b}".format(d)
+        print("d which is (a)", d_binary)
+
+        e = c ^ a_int
+        e_binary = "{0:08b}".format(e)
+        print("e which is (b)", e_binary)
         
     
         
