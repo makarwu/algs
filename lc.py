@@ -326,7 +326,23 @@ class Solution(object):
         e = c ^ a_int
         e_binary = "{0:08b}".format(e)
         print("e which is (b)", e_binary)
-        
+    
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        # modification should be done "in-place"
+        if not nums:
+            return 0
+            
+        k = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[k] = nums[i]
+                k += 1
+        return k
     
         
 ### TESTING ###
