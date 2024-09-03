@@ -372,6 +372,22 @@ class Solution(object):
 
         return roman_int
     
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if needle not in haystack:
+            return -1
+        
+        l = len(haystack)
+        i = 0
+        if needle in haystack:
+            i = haystack.index(needle)
+            
+        return i
+    
         
 ### TESTING ###
 
