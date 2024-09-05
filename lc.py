@@ -435,7 +435,27 @@ class Solution(object):
                 right -= 1
             
         return max_area
+    
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        ## Run-time must be O(log n)
+        i = 0
+        j = len(nums) - 1
         
+        while i <= j:
+            x = (i+j) // 2
+            if nums[x] == target:
+                return x
+            elif nums[x] < target:
+                i = x + 1      
+            else:
+                j = x - 1
+            
+        return i
         
 ### TESTING ###
 
