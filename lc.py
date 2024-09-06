@@ -456,6 +456,29 @@ class Solution(object):
                 j = x - 1
             
         return i
+    
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        # Two-pointer approach
+        dummy = ListNode(0, head)
+        first = dummy
+        second = dummy
+        
+        for _ in range(n+1):
+            first = first.next
+        
+        while first is not None:
+            first = first.next
+            second = second.next
+        
+        second.next = second.next.next
+        
+        return dummy.next
+        
         
 ### TESTING ###
 
