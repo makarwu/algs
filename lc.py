@@ -478,7 +478,34 @@ class Solution(object):
         second.next = second.next.next
         
         return dummy.next
+    
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if digits == "":
+            return []
         
+        number_map = {"2" : "abc",
+                     "3": "def",
+                     "4": "ghi",
+                     "5": "jkl",
+                     "6": "mno",
+                     "7": "pqrs",
+                     "8": "tuv",
+                     "9": "wxyz"}
+        
+        char_list = [""]
+        for digit in digits:
+            digit_to_chars = []
+            for product in char_list:
+                for char in number_map[digit]:
+                    digit_to_chars.append(product + char)
+                    
+            char_list = digit_to_chars
+        
+        return char_list
         
 ### TESTING ###
 
