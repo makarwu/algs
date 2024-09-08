@@ -506,6 +506,46 @@ class Solution(object):
             char_list = digit_to_chars
         
         return char_list
+
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        def isValid(s):
+            bracket_map = {')': '('}
+            stack = []
+
+            for char in s:
+                if char in bracket_map: 
+                    top_element = stack.pop() if stack else "#"
+                    if bracket_map[char] != top_element:
+                        return False
+                else: 
+                    stack.append(char)
+
+            return not stack
+        
+        res = []
+        
+        def backtrack(open, close, current):
+            if len(current) == 2*n:
+                res.append(current)
+                return
+            if open < n:
+                backtrack(open+1, close, current+'(')
+            if close < open:
+                backtrack(open, close+1, current+')')
+        
+        backtrack(0, 0, "")
+        
+        for i in res:
+            if isValid(i):
+                continue
+            else:
+                res.remove(i)
+        
+        return res
         
 ### TESTING ###
 
