@@ -606,6 +606,43 @@ class Solution(object):
             nums[i], nums[j] = nums[j], nums[i]
             
         nums[i + 1:] = reversed(nums[i + 1:])
+
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        # Must be O(log n) -> Binary Search
+        def binarySearchLeft(nums, target):
+            left, right = 0, len(nums) - 1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return left
+        
+        def binarySearchRight(nums, target):
+            left, right = 0, len(nums) - 1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] <= target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return right
+        
+        left_index = binarySearchLeft(nums, target)
+        right_index = binarySearchRight(nums, target)
+
+        if left_index < right_index and right_index < len(nums) and nums[left_index] == target and nums[right_index] == target:
+            return [left_index, right_index]
+        else:
+            return [-1, 1]
+
+        
             
         
 ### TESTING ###
