@@ -640,10 +640,30 @@ class Solution(object):
         if left_index < right_index and right_index < len(nums) and nums[left_index] == target and nums[right_index] == target:
             return [left_index, right_index]
         else:
-            return [-1, 1]
-
+            return [-1, -1]
+    
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        previous = dummy
         
+        while head and head.next:
+            first = head
+            second = head.next
             
+            previous.next = second
+            first.next = second.next
+            second.next = first
+            
+            previous = first
+            head = first.next
+    
+        return dummy.next
+
         
 ### TESTING ###
 
