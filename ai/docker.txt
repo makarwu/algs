@@ -1,0 +1,143 @@
+- package and distribute software in a consistent and efficient manner. 
+- you can create reproducible environments that encapsulate all dependencies,
+making it easier to manage, scale, and deploy ML models and their associated data preprocessing workflows.
+
+- container: executable software package that includes the software, the code, runtime, and libraries, and system tools.
+- they are similar to vitual machines but are more resource-efficient because they share the host 
+system's kernel and do not require a full operating system for each instance.
+- this makes them fast to start, highly portable, and efficient in terms of system resource usage.
+- they are commonly used to ensure:
+(1) consistent operation across different computing environments
+(2) streamline development 
+(3) simplify deployment and scaling
+
+Deployment:
+
+(1): Create a docker file:
+
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
+
+# Set the work directory
+WORKDIR /app
+
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Define environment variable
+ENV NAME World
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
+
+
+(2) Build the Docker Image:
+
+docker build -t my-ml-app .
+
+
+(3) Run the Container:
+
+docker run -p 4000:80 my-ml-app
+
+
+(4) Manage Data with Docker Volumes:
+
+Since containers are ephemeral, use Docker volumes to manage and persist data:
+
+docker run -d -p 4000:80 -v "$(pwd)/data:/app/data" my-ml-app
+
+This command mounts the data directory from your current directory to the /app/data directory
+in the container
+
+
+
+
+--- ADVANCED USAGE --- 
+
+Docker Compose:
+
+For complex applications, with multiple containers that may include ML models, databases, and 
+web servers, Docker Compose can manage the lifecycle of your application with a single command.
+
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+  redis:
+    image: "redis:alpine"
+
+
+Networking:
+
+Docker can manage networking between containers, allowing data to flow between your ML models, 
+databases, and applications.
+
+Security:
+
+Ensure your Docker images and containers are secure by managing container priviliges and
+accessing control.
+
+-- DEPLOY JUPYTER NOTEBOOK ON DOCKER --
+
+(1) Create a Dockerfile:
+
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
+
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Install Jupyter
+RUN pip install jupyterlab
+
+# Expose the port Jupyter will run on
+EXPOSE 8888
+
+# Run JupyterLab
+# Note: Using the `--ip=0.0.0.0` setting to make your notebook accessible to any IP address.
+# This is important in a Docker environment where you want to access the notebook from your browser.
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+
+(2) Build the Docker Image:
+
+docker build -t jupyterlab-docker .
+
+(3) Run the Docker Container:
+
+docker run -p 8888:8888 jupyterlab-docker
+
+(4) Access JupyterLab
+
+http://127.0.0.1:8888/?token=<some_long_token>
+
+-- OPTIONAL: ADDING PERSISTENT STORAGE --
+
+If you want your notebooks and data to persist after the container is stopped, you can mount
+a volume to the container:
+
+docker run -p 8888:8888 -v "$PWD":/usr/src/app jupyterlab-docker
+
+This command mounts the current directory $PWD on your host /usr/src/app in the container,
+making it the working directory where your notebooks and files are stored.
+
+-- OPTINAL: ADDING MORE LIBRARIES --
+
+If your work requires additional libraries or tools, you can add more RUN pip install lines 
+in the Dockerfile or create a requirements.txt file and copy it into the image:
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+This setup provides a robust, reproducible, and portable environment for woking with 
+Jupyter notebooks, ensuring that your data and code can be shared and accessed seamlessly
+across different machines and platforms.
