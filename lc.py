@@ -687,6 +687,28 @@ class Solution(object):
                 else:
                     right = mid - 1
         return -1
+    
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        base = "1"
+        for i in range(n - 1):
+            temp = base
+            base = ""
+            result = temp[0]
+            count = 1
+            for j in range(1, len(temp)):
+                if temp[j] != temp[j-1]:
+                    base += str(count)
+                    base += result
+                    result = temp[j]
+                    count = 0
+                count += 1
+            base += str(count)
+            base += result
+        return base
 
         
 ### TESTING ###
