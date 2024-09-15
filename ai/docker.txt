@@ -11,6 +11,9 @@ system's kernel and do not require a full operating system for each instance.
 (2) streamline development 
 (3) simplify deployment and scaling
 
+
+-- install nvidia-docker (github repo) --
+
 Deployment:
 
 (1): Create a docker file:

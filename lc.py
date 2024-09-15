@@ -709,6 +709,52 @@ class Solution(object):
             base += str(count)
             base += result
         return base
+    
+    def countAndSay(self, n): # more understandable version
+    
+        base = "1"  # Starting base case
+        
+        for i in range(n - 1):
+            temp = base  # Current sequence
+            base = ""  # Reset for the new sequence
+            count = 1  # Initialize count for the first character
+            
+            for j in range(1, len(temp)):  # Start from 1 to compare with temp[0]
+                if temp[j] == temp[j - 1]:  # If same as previous char
+                    count += 1
+                else:  # When characters change, append count and char
+                    base += str(count) + temp[j - 1]
+                    count = 1  # Reset count for the new character
+                    
+            # Add the last counted group
+            base += str(count) + temp[-1]
+        
+        return base
+    
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        def backtrack(remainder, combination, start):
+            if remainder == 0:
+                result.append(list(combination))
+                return 
+            elif remainder < 0:
+                return
+            
+            for i in range(start, len(candidates)):
+                combination.append(candidates[i])
+                # number can be reused, we pass i not i+1
+                backtrack(remainder - candidates[i], combination, i)
+                # backtrack by removing the last added candidate
+                combination.pop()
+              
+        backtrack(target, [], 0)
+        return result
+
 
         
 ### TESTING ###
