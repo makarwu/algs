@@ -754,6 +754,24 @@ class Solution(object):
               
         backtrack(target, [], 0)
         return result
+    
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res_perms = [[]]
+        
+        for num in nums:
+            new_perm = []
+
+            for perm in res_perms:
+                for i in range(len(perm)+1):
+                    new_perm.append(perm[:i] + [num] + perm[i:])
+
+            res_perms = new_perm
+
+        return res_perms
 
 
         
