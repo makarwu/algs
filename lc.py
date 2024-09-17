@@ -773,6 +773,29 @@ class Solution(object):
 
         return res_perms
 
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        candidates.sort()
+        def backtrack(remainder, combination, start):
+            if remainder == 0:
+                result.append(list(combination))
+            elif remainder < 0:
+                return
+        
+            for i in range(start, len(candidates)):
+                if i > start and candidates[i] == candidates[i-1]:
+                    continue
+                combination.append(candidates[i])
+                backtrack(remainder - candidates[i], combination, i+1)
+                combination.pop()
+
+        backtrack(target, [], 0)
+        return result
 
         
 ### TESTING ###
