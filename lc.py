@@ -838,7 +838,17 @@ class Solution(object):
                 boxes[box_index].add(num)
         
         return True
-                
+
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        results = collections.defaultdict(list)
+        for string in strs:
+            sorted_string = ''.join(sorted(string))
+            results[sorted_string].append(string)
+        return list(results.values())
 
         
 ### TESTING ###
