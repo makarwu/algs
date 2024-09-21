@@ -859,6 +859,25 @@ class Solution(object):
         sorted_nums = sorted(nums, key=str)
         sorted_nums_int = [int(i) for i in sorted_nums]
         return sorted_nums_int
+    
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res_perms = [[]]
+        
+        for num in nums:
+            new_perm = []
+
+            for perm in res_perms:
+                for i in range(len(perm)+1):
+                    new_perm.append(perm[:i] + [num] + perm[i:])
+
+            res_perms = new_perm
+        
+        res_perms.sort()
+        return list(res_perms for res_perms, _ in itertools.groupby(res_perms))
 
         
 ### TESTING ###
