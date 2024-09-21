@@ -849,6 +849,16 @@ class Solution(object):
             sorted_string = ''.join(sorted(string))
             results[sorted_string].append(string)
         return list(results.values())
+    
+    def lexicalOrder(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        nums = [str(i) for i in range(1,n+1)]
+        sorted_nums = sorted(nums, key=str)
+        sorted_nums_int = [int(i) for i in sorted_nums]
+        return sorted_nums_int
 
         
 ### TESTING ###
