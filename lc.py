@@ -879,6 +879,49 @@ class Solution(object):
         res_perms.sort()
         return list(res_perms for res_perms, _ in itertools.groupby(res_perms))
 
+    # TIME LIMIT EXCEEDED
+    def isValidSudoku(self, board):
+            rows = [set() for _ in range(9)]
+            cols = [set() for _ in range(9)]
+            boxes = [set() for _ in range(9)]
+
+            for r in range(9):
+                for c in range(9):
+                    num = board[r][c]
+                    if num == ".":
+                        continue
+
+                    if num in rows[r]:
+                        return False
+                    rows[r].add(num)
+
+                    if num in cols[c]:
+                        return False
+                    cols[c].add(num)
+
+                    box_index = (r // 3) * 3 + (c // 3)
+                    if num in boxes[box_index]:
+                        return False
+                    boxes[box_index].add(num)
+
+            return True
+        
+        def backtrack(board):
+            for r in range(9):
+                for c in range(9):
+                    if board[r][c] == '.':
+                        for num in map(str, range(1, 10)):
+                            if isValidSudoku(board):
+                                board[r][c] = num
+                                if backtrack(board):
+                                    return True
+                                board[r][c] = '.'
+                        return False
+            print(board)
+            return True
+            
+        backtrack(board)
+
         
 ### TESTING ###
 
