@@ -957,6 +957,48 @@ class Solution(object):
                 k -= 1
                 
         return curr
+    
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        
+        prehead = ListNode(0, head)
+        node_before_sublist = prehead
+        while True:
+            initial_starting_node = node_before_sublist.next
+            initial_kth_node = self.get_kth_node(node_before_sublist, k)
+            if initial_kth_node == None:
+                break
+            node_after_sublist = initial_kth_node.next
+            
+            
+            prev_node = None
+            current_node = node_before_sublist.next
+            while current_node != node_after_sublist:
+                next_node = current_node.next
+                
+                current_node.next = prev_node
+                
+                prev_node = current_node
+                current_node = next_node
+            
+            node_before_sublist.next = initial_kth_node
+            initial_starting_node.next = node_after_sublist
+            
+            node_before_sublist = initial_starting_node
+        
+        return prehead.next
+    
+    def get_kth_node(self, prev_node, k):
+        current_node = prev_node
+        while current_node and k > 0:
+            current_node = current_node.next
+            k -= 1
+        
+        return current_node
         
 ### TESTING ###
 
