@@ -1009,7 +1009,7 @@ class Solution(object):
         res = str(int(num1) * int(num2))
         return res
 
-    def multiply(self, num1: str, num2: str) -> str:
+    def multiply2(self, num1: str, num2: str) -> str:
         n1 = 0
         n2 = 0
         for i in num1:
@@ -1018,6 +1018,37 @@ class Solution(object):
             n2 = n2*10 + (ord(i) - 48)
         ans = str(n1*n2)
         return ans
+    
+    def divide(self, dividend, divisor):
+        """
+        :type dividend: int
+        :type divisor: int
+        :rtype: int
+        """
+        MAX_INT = 2**31 - 1
+        MIN_INT = -2**31
+        
+        if dividend == MIN_INT and divisor == -1:
+            return MAX_INT
+        
+        sign = -1 if (dividend < 0) != (divisor < 0) else 1
+        
+        dividend, divisor = abs(dividend), abs(divisor)
+        quotient = 0
+        
+        # subtract divisor from dividend, but do it efficiently
+        while dividend >= divisor:
+            temp_divisor, multiple = divisor, 1
+            
+            # efficiently subtract powers of two of the divisor
+            while dividend >= (temp_divisor << 1):
+                temp_divisor <<= 1
+                multiple <<= 1
+                
+            dividend -= temp_divisor
+            quotient += multiple
+        
+        result = sign * quotient
         
 ### TESTING ###
 
