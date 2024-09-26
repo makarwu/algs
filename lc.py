@@ -579,7 +579,6 @@ class Solution(object):
                         while left < right and nums[right] == nums[right - 1]:
                             right -= 1
                     
-                        
                         left += 1
                         right -= 1
                     
@@ -1049,6 +1048,30 @@ class Solution(object):
             quotient += multiple
         
         result = sign * quotient
+    
+    def sublist_with_largest_sum(lst):
+        max_sum = float('-inf')  # Initialize to negative infinity to handle negative numbers
+        sublist = []
+        
+        for i in range(len(lst)):
+            current_sum = 0
+            for j in range(i, len(lst)):
+                current_sum += lst[j]
+                if current_sum > max_sum:
+                    max_sum = current_sum
+                    sublist = lst[i:j+1]  # Update sublist with current sublist
+        
+        return sublist, max_sum
+    
+    ## OR use Kandane's Algorithm: O(n) time
+    def max_sub_array_sum(nums):
+        current_sum = max_sum = nums[0] # Init both to the first element
+
+        for num in nums[1:]:
+            current_sum = max(num, current_sum + num) # Decide whether to add num or start a new subarray
+            max_sum = max(max_sum, current_sum) # Update the maximum sum so far
+
+        return max_sum
         
 ### TESTING ###
 
