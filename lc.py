@@ -1102,7 +1102,32 @@ class Solution(object):
                     spiral.append(matrix[i][left])
                 left += 1
         return spiral
+    
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if not intervals:
+            return []
         
+        intervals.sort(key=lambda x: x[0])
+        
+        result = [intervals[0]]
+        
+        for i in range(1, len(intervals)):
+            # Get the last interval in the result
+            last_interval = result[-1]
+            # If the current interval overlaps with the last interval, merge them
+            if intervals[i][0] <= last_interval[1]:
+                last_interval[1] = max(last_interval[1], intervals[i][1])
+            else:
+                # Add the current interval to the result
+                result.append(intervals[i])
+                
+        return result
+
+
 ### TESTING ###
 
 def create_linked_list(lst):
