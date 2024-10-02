@@ -1126,6 +1126,11 @@ class Solution(object):
                 result.append(intervals[i])
                 
         return result
+    
+    def lengthOfLastWord(self, s):
+        last_word = s.strip().split(" ")[-1]
+        print("last word:", last_word)
+        return len(last_word)
 
 
 ### TESTING ###
