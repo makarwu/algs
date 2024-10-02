@@ -1131,6 +1131,44 @@ class Solution(object):
         last_word = s.strip().split(" ")[-1]
         print("last word:", last_word)
         return len(last_word)
+    
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        if n <= 0:
+            return []
+        
+        matrix = [row[:] for row in [[0]*n]*n]
+        row_st=0
+        row_end=n-1
+        
+        col_st=0
+        col_end=n-1
+        current=1
+        
+        while(True):
+            if current > n*n:
+                break
+            for c in range(col_st, col_end+1):
+                matrix[row_st][c] = current
+                current += 1
+            row_st += 1
+            for r in range(row_st, row_end+1):
+                matrix[r][col_end] = current
+                current += 1
+            col_end-=1
+            for c in range(col_end, col_st-1, -1):
+                matrix[row_end][c] = current
+                current+=1
+            row_end-=1
+            for r in range(row_end, row_st-1, -1):
+                matrix[r][col_st] = current
+                current+=1
+            col_st+=1
+        
+        return matrix
 
 
 ### TESTING ###
