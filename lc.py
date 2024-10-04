@@ -1182,6 +1182,11 @@ class Solution(object):
                 dp[i][j] = dp[i-1][j] + dp[i][j-1]
         return dp[m-1][n-1]
         
+    def uniquePathsWithObstacles(self, obstacleGrid):
+        """
+        :type obstacleGrid: List[List[int]]
+        :rtype: int
+        """
 
 
 ### TESTING ###
