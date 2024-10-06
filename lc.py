@@ -1241,6 +1241,15 @@ class Solution(object):
         sum = a_int + b_int
         sum_new = "{0:08b}".format(sum).lstrip("0") if sum > 0 else "0"
         return sum_new
+    
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        num = int(''.join(map(str, digits))) + 1
+        num_list = [int(i) for i in str(num)]
+        return num_list
 
 
 ### TESTING ###
