@@ -1229,6 +1229,18 @@ class Solution(object):
                 grid[i][j] += min(grid[i-1][j], grid[i][j-1])
         
         return grid[m-1][n-1]
+    
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        a_int = int(a, 2)
+        b_int = int(b, 2)
+        sum = a_int + b_int
+        sum_new = "{0:08b}".format(sum).lstrip("0") if sum > 0 else "0"
+        return sum_new
 
 
 ### TESTING ###
