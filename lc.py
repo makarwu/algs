@@ -1269,7 +1269,29 @@ class Solution(object):
         
         return prev1
         
-
+    # or we can solve it like this with Fibonacci Series  Time Complexity is O(2^n) due to redundant computations
+    def climbStairs2(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 0 or n == 1:
+            return 1
+        return self.climbStairs2(n-1) + self.climbStairs2(n-2)
+    
+    def climbStairs3(self, n): # really fast solution
+ 
+        if n <= 2: 
+            return n
+        
+        a, b, c = 0, 1, 2
+        
+        while (n > 2):
+            a, b = b, c
+            c = a + b
+            n = n - 1
+        
+        return c
 
 ### TESTING ###
 
