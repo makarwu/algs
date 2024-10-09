@@ -1308,6 +1308,27 @@ class Solution(object):
             result = i*i
             
         return i-1 # floorSqrt
+    
+    def setZeroes(self, matrix): # in-place
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        queue = []
+        for r in range(len(matrix)):
+            for c in range(len(matrix[r])):
+                if matrix[r][c] == 0:
+                    queue.append((r, c))
+
+        def process(i, j):
+            for k in range(len(matrix[i])):
+                matrix[i][k] = 0
+
+            for k in range(len(matrix)):
+                matrix[k][j] = 0
+
+        for i in queue:
+            process(i[0], i[1])
 
 ### TESTING ###
 
