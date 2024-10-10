@@ -1329,6 +1329,47 @@ class Solution(object):
 
         for i in queue:
             process(i[0], i[1])
+    
+    def searchMatrix(self, matrix, target): # O(log(m*n)): Binary Search
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        if not matrix or not matrix[0]:
+            return False
+        
+        m, n = len(matrix), len(matrix[0])
+        left, right = 0, m * n - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+            # Calculate the row corresponding to the mid index
+            row = mid // n
+            col = mid % n
+            mid_val = matrix[row][col]
+
+            if mid_val == target:
+                return True
+            elif mid_val < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        
+        return False
+
+    def searchMatrix2(self, matrix, target): # My appraoch
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        for r in range(len(matrix)):
+            for c in range(len(matrix[r])):
+                if matrix[r][c] == target:
+                    return True
+        
+        return False
 
 ### TESTING ###
 
