@@ -843,6 +843,8 @@ class Solution(object):
         :type strs: List[str]
         :rtype: List[List[str]]
         """
+        import collections
+
         results = collections.defaultdict(list)
         for string in strs:
             sorted_string = ''.join(sorted(string))
@@ -864,6 +866,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        import itertools
+        
         res_perms = [[]]
         
         for num in nums:
@@ -905,21 +909,21 @@ class Solution(object):
 
             return True
         
-        def backtrack(board):
-            for r in range(9):
-                for c in range(9):
-                    if board[r][c] == '.':
-                        for num in map(str, range(1, 10)):
-                            if isValidSudoku(board):
-                                board[r][c] = num
-                                if backtrack(board):
-                                    return True
-                                board[r][c] = '.'
-                        return False
-            print(board)
-            return True
-            
-        backtrack(board)
+            def backtrack(board):
+                for r in range(9):
+                    for c in range(9):
+                        if board[r][c] == '.':
+                            for num in map(str, range(1, 10)):
+                                if isValidSudoku(board):
+                                    board[r][c] = num
+                                    if backtrack(board):
+                                        return True
+                                    board[r][c] = '.'
+                            return False
+                print(board)
+                return True
+                
+            backtrack(board)
     
     # MEMORY LIMIT EXCEEDED for large n
     def findKthNumber(self, n, k):
@@ -1389,6 +1393,26 @@ class Solution(object):
             else: # blue color
                 nums[mid], nums[high] = nums[high], nums[mid]
                 high -= 1
+    
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        def backtrack(start, comb):
+            if len(comb) == k:
+                res.append(list(comb))
+                return
+        
+            for i in range(start, n+1):
+                comb.append(i)
+                backtrack(i+1, comb)
+                comb.pop()
+        
+        backtrack(1, [])
+        return res
 
 ### TESTING ###
 
