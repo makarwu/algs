@@ -1413,6 +1413,26 @@ class Solution(object):
         
         backtrack(1, [])
         return res
+    
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        
+        def backtrack(start, current):
+            res.append(list(current)) # Add the current subset to the result
+            for i in range(start, len(nums)): # Explore further subsets by adding one element at a time
+                current.append(nums[i]) 
+
+                backtrack(i+1, current) # Move to the next element
+                
+                current.pop() # Backtrack by removing the last element
+                
+        backtrack(0, []) # Start backtracking from the first element
+        return res
+
 
 ### TESTING ###
 
