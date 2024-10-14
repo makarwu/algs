@@ -1432,6 +1432,40 @@ class Solution(object):
                 
         backtrack(0, []) # Start backtracking from the first element
         return res
+    
+    def exists(board, word):
+        rows, cols = len(board), len(board[0])
+        
+        # Helper to perform DFS search
+        def dfs(r, c, index):
+            # If the entire word is found, return True
+            if index == len(word):
+                return True
+            
+            # Check boundaries and whether the current cell matches thw word[index]
+            if r < 0 or c < 0 or r >= rows or c >= cols or board[r][c] != word[index]:
+                return False
+            
+            # Temporarely mark the current cell as visited by changing its value
+            temp = board[r][c]
+            board[r][c] = '#'
+            
+            # Explore all four possible directions (up, down, left, right)
+            found = (dfs(r+1, c, index+1) or
+                    dfs(r-1, c, index+1) or
+                    dfs(r, c+1, index+1) or
+                    dfs(r, c-1, index+1))
+            
+            board[r][c] = temp
+            
+            return found
+        
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] == word[0] and dfs(i, j, 0):
+                    return True
+        
+        return False
 
 
 ### TESTING ###
