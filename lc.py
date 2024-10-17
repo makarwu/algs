@@ -1495,7 +1495,35 @@ class Solution(object):
             else:
                 current = current.next        
         return head
-
+    
+    def partition(self, head, x):
+        """
+        :type head: ListNode
+        :type x: int
+        :rtype: ListNode
+        """
+        # two dummy nodes to represent the beginning of a list
+        less_head = ListNode(0)
+        greater_head = ListNode(0)
+        
+        # pointers to build the two lists
+        less = less_head
+        greater = greater_head
+        
+        current = head
+        while current:
+            if current.val < x:
+                less.next = current
+                less = less.next
+            else:
+                greater.next = current
+                greater = greater.next
+            current = current.next
+            
+        # link the two lists
+        greater.next = None # important, to avoid a cycle in the list
+        less.next = greater_head.next # connect less list to greater list
+        return less_head.next # return the head of the new partitioned list
 
 ### TESTING ###
 
