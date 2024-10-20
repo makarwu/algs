@@ -1524,6 +1524,30 @@ class Solution(object):
         greater.next = None # important, to avoid a cycle in the list
         less.next = greater_head.next # connect less list to greater list
         return less_head.next # return the head of the new partitioned list
+    
+    def merge(self, nums1, m, nums2, n): # Three-Pointer Approach: O(m+n) time
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
+        """
+        p1, p2, p = m-1, n-1, m+n-1 # Start from the end of both arrays
+        
+        while p1>=0 and p2>=0: # merge in reverse order
+            if nums1[p1] > nums2[p2]:
+                nums1[p] = nums1[p1]
+                p1-=1
+            else:
+                nums1[p] = nums2[p2]
+                p2-=1
+            p-=1
+            
+        while p2 >= 0: # if there are still elements in nums2, copy them
+            nums1[p] = nums2[p2]
+            p-=1
+            p2-=1
 
 ### TESTING ###
 
