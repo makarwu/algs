@@ -1549,6 +1549,18 @@ class Solution(object):
             p-=1
             p2-=1
 
+    def grayCode(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        # Base case: Gray code sequence for 1 bit is [0, 1]
+        base = [0]
+        for i in range(n): # Built the gray code for n-bits
+            mirror = [(1 << i) | x for x in reversed(base)] # create the mirrored list by reversing and adding the new bit at the front
+            base.extend(mirror)
+        return base
+        
 ### TESTING ###
 
 def create_linked_list(lst):
